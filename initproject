@@ -1,0 +1,22 @@
+#!/bin/bash
+
+[ -z "$1" ] && echo "Please enter a name for your project" && exit 1
+[ -z "$2" ] && echo "Please enter a remote for your project" && exit 1
+
+read -p "This script will now create a directory ($1), initialise it, and push it to $2/master. Continue? (Y/N) " prompt
+
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
+  mkdir $1
+  cd $1
+  touch README.md
+  echo "# $1" > README.md
+  git init
+  git add .
+  git commit -m "Initial commit"
+  git remote add origin $2
+  git push -u origin master
+
+  echo "All done"
+else
+  exit 0
+fi
